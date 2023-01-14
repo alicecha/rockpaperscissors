@@ -20,22 +20,58 @@ function playRound(playerSelection, computerSelection) {
     
     //return outcome variable which states whether player wins or loses depending on both selections.
     if (playerSelection == computerSelection) {
-        return outcome = `No one wins! You both picked ${playerSelection}.`;
+        return roundOutcome = `No one wins! You both picked ${playerSelection}.`;
     } else if ((playerSelection == "Rock" && computerSelection == "Paper") ||
                (playerSelection == "Paper" && computerSelection == "Scissors") ||
                (playerSelection == "Scissors" && computerSelection == "Rock")) {
-        return outcome = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        return roundOutcome = `You Lose! ${computerSelection} beats ${playerSelection}`;
     } else {
-        return outcome = `You Win! ${playerSelection} beats ${computerSelection}`;
+        return roundOutcome = `You Win! ${playerSelection} beats ${computerSelection}`;
     }
 }
 
-//Define the two parameters of the function and test result in the console:
-    //The player selection is fixed for now.
-    const playerSelection = "RoCK";
-    //The computer selection is generated randomly from the getComputerChoice function
-    let computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
+//Create function that plays 5 rounds of the game and keeps a tally, reporting who won and last at the end.
+function game() {
+    //declare two variables to keep tally of computer wins and player wins, initiate at 0
+    let computerWinCount = 0;
+    let playerWinCount = 0;
 
+    //Create a for loop to play the game 5 times
+    for (i=1; i<=5; i++) {
+        
+        //Declare parameters for playRound() function
+        const playerSelection = prompt(`Round ${i}: Rock, Paper or Scissors?`);
+        const computerSelection = getComputerChoice();
 
+        //call playRound() function to play a round of the game
+        playRound(playerSelection, computerSelection);  
 
+        //increment either player score or computer score depending on who wins. Do nothing if neither win.
+        switch(true) {
+            case roundOutcome.includes("You Lose!"):
+                computerWinCount++;
+                break;
+            case roundOutcome.includes("You Win!"):
+                playerWinCount++;
+                break;
+            default:
+                break;
+        };
+
+        //log outcome of each round in the console
+        console.log(playRound(playerSelection, computerSelection), computerWinCount, playerWinCount);
+    };
+
+    //create variable that stores outcome of the 5 rounds
+    let gameOutcome = "";
+
+    if (computerWinCount > playerWinCount) {
+        gameOutcome = "Computer wins!";
+    } else if (playerWinCount > computerWinCount) {
+        gameOutcome = "Player wins!";
+    } else {
+        gameOutcome = "This is a tie!"
+    };
+
+    console.log(gameOutcome);
+}

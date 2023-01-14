@@ -14,8 +14,11 @@ function getComputerChoice() {
 //Create function that plays a single round of the game.
 //The function will take two parameters: the player selection and the computer selection.
 function playRound(playerSelection, computerSelection) {
-    //create outcome variable which states whether player wins or loses depending on both selections.
-    //log outcome in console
+    //make the parameters case-insensitive by converting first letter to uppercase and rest lower case.
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+    computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1).toLowerCase();
+    
+    //return outcome variable which states whether player wins or loses depending on both selections.
     if (playerSelection == computerSelection) {
         return outcome = `No one wins! You both picked ${playerSelection}.`;
     } else if ((playerSelection == "Rock" && computerSelection == "Paper") ||
@@ -29,7 +32,7 @@ function playRound(playerSelection, computerSelection) {
 
 //Define the two parameters of the function and test result in the console:
     //The player selection is fixed for now.
-    const playerSelection = "Rock";
+    const playerSelection = "RoCK";
     //The computer selection is generated randomly from the getComputerChoice function
     let computerSelection = getComputerChoice();
     console.log(playRound(playerSelection, computerSelection));
